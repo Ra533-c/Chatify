@@ -3,6 +3,8 @@ import express from "express";
 import dotenv from "dotenv"
 import connectDB from "./config/database.js";
 import userRoute from "./routes/userRoute.js";
+import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 //path
 import path from "path";
@@ -12,10 +14,10 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({});
 connectDB();
-
 const app = express();
 
 // Middleware to parse JSON obj( request body) -> JS obj 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"public")));
