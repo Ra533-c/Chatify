@@ -12,14 +12,20 @@ export const register = async (req, res) => {
         if (password !== confirmPassword) {
             return res
                 .status(400)
-                .json({ message: "Password doesn't match!" });
+                .json({
+                    message: "Password doesn't match!",
+                    success: false
+                });
         }
 
         const user = await User.findOne({ username });
         if (user) {
             return res
                 .status(400)
-                .json({ message: "user already exists, try with another username!" })
+                .json({
+                    message: "user already exists, try with another username!",
+                    success: false
+                });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -38,7 +44,10 @@ export const register = async (req, res) => {
         });
         return res
             .status(201)
-            .json({ message: "account created successfully!" });
+            .json({
+                message: "account created successfully!",
+                success: true
+            });
     } catch (err) {
         console.log(err);
         return res
@@ -80,6 +89,8 @@ export const Login = async (req, res) => {
             .status(200)
             .cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' })
             .json({
+                message: `Welcome back ${user.fullName}`,
+                success: true,
                 _id: user._id,
                 username: user.username,
                 fullName: user.fullName,

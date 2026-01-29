@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Ye hai TRICK: Pseudo-element (Nakli element jo HTML mein nahi bas CSS se banta hai) */
+body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    /* AB ROTATION LOGIC (Corrected for Cat Image):
+       Image Vertical (Portrait) hai, Screen Horizontal (Landscape) hai.
+       Isko 90deg (Clockwise) ghumayenge taaki ye screen fit kare 
+       aur Cat seedhi lage (Left se Right dekhne jaisi).
+    */
+    width: 100vh;
+    /* Height -> Screen Width */
+    height: 100vw;
+    /* Width -> Screen Height */
+
+    background-color: #1a1a1a;
+    background-image: url('/cat.jpeg');
+    background-size: cover;
+    /* Puri screen fill karega */
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: -1;
+
+    /* Rotate -90deg taaki top-bottom -> left-right ban jaye */
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Scrollbar style  */
+
+/* ========== Custom Scrollbar (Visible on Dark BG) ========== */
+
+::-webkit-scrollbar {
+    width:2px;  /* Slightly wider = more visible */
+    height: 2px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.05);  /* Subtle light track */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);  /* Light gray - VISIBLE! */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);  /* Subtle border */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.5);  /* Brighter on hover */
+}
+
+/* Firefox Support */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}

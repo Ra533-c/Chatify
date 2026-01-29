@@ -21,7 +21,6 @@ const userModel = new mongoose.Schema({
     profilePhoto: {
         type: String,
         default: "",
-        required: true,
     },
     gender: {
         type: String,
