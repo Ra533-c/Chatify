@@ -1,11 +1,13 @@
 import react from "react";
 import SingleMessage from "./SingleMessage";
 import useGetMessages from "../hooks/useGetMessages.jsx";
+import useGetRealTimeMessage from "../hooks/useGetRealTimeMessage.jsx";
 import { useSelector } from "react-redux";
 
 
 const Messages = () => {
     useGetMessages();
+    useGetRealTimeMessage();
     const {messages} = useSelector((store)=>store.message);
     if(!messages || !Array.isArray(messages) || messages.length === 0 ){
         return <p className="text-white flex items-center justify-center flex-1">Loading...</p>
