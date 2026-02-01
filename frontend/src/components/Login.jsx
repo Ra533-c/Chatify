@@ -1,20 +1,20 @@
 import React from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios'; // Axios import kiya
 import toast from "react-hot-toast";
-import {useDispatch,useSelector} from "react-redux";
-import {setAuthUser} from "../redux/Slice/userSlice";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthUser } from "../redux/Slice/userSlice";
+import AnimatedButton from './AnimatedButton';
 
 const Login = () => {
     const [user, setUser] = useState({
         username: "",
         password: ""
     });
-    
+
     const dispatch = useDispatch();
-    const {authUser} = useSelector((state)=>state.user);
+    const { authUser } = useSelector((state) => state.user);
 
     const navigate = useNavigate();
     const onSubmitHandler = async (e) => {
@@ -26,15 +26,15 @@ const Login = () => {
                 },
                 withCredentials: true
             });
-            if(res.data.success){
-                console.log("the res come from backend:-",res)
+            if (res.data.success) {
+                console.log("the res come from backend:-", res)
                 navigate("/");
-                console.log("the res.data:-",res.data);
+                console.log("the res.data:-", res.data);
                 dispatch(setAuthUser(res.data));
                 toast.success(res.data.message);
                 setUser({
-                    username:"",
-                    password:""
+                    username: "",
+                    password: ""
                 });
             }
 
@@ -75,7 +75,7 @@ const Login = () => {
                             placeholder='abc#123'
                         />
                     </div>
-                    <div className='text-white flex items-center justify-center'>
+                    <div className='text-white flex items-center justify-center mb-3'>
                         <p>Don't have an account?</p>
                         &nbsp;
                         <Link className='hover:underline hover:text-blue-600' to={"/signup"}>
@@ -83,8 +83,7 @@ const Login = () => {
                         </Link>
                     </div>
                     <div>
-                        <button type='submit' className='btn btn-block btn-sm mt-2 border border-slate-700 text-lg h-9'>Login</button>
-                    </div>
+                        <AnimatedButton type="submit">Login</AnimatedButton>                    </div>
                 </form>
             </div>
         </div>

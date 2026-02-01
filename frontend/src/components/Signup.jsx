@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import toast from "react-hot-toast";
+import AnimatedButton from './AnimatedButton';
 
 
 const Signup = () => {
@@ -138,7 +139,7 @@ const Signup = () => {
                                 className="checkbox mx-2" />
                         </div>
                     </div>
-                    <div className='text-white flex items-center justify-center'>
+                    <div className='text-white flex items-center justify-center mb-3'>
                         <p>Already have an account?</p>
                         &nbsp;
                         <Link className='hover:underline hover:text-blue-600' to={"/login"}>
@@ -146,7 +147,7 @@ const Signup = () => {
                         </Link>
                     </div>
                     <div>
-                        <button type='submit' className='btn btn-block btn-sm mt-2 border border-slate-700 text-lg h-9'>Signup</button>
+                        <AnimatedButton type="submit">Signup</AnimatedButton>
                     </div>
                 </form>
             </div>

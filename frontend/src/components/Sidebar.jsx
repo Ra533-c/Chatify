@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setfilteredUsers, setAuthUser, setSelectedUser, setOnlineUsers, setOtherUsers } from '../redux/Slice/userSlice';
 import { setSocket } from '../redux/Slice/socketSlice';
 import { setMessages } from '../redux/Slice/messageSlice';
+import LogoutButton from './LogoutButton';
 
 const Sidebar = () => {
     // 1.fetch socket from redux 
@@ -90,7 +91,7 @@ const Sidebar = () => {
             <div className="divider"></div>
             <OtherUsers />
             <div className='flex justify-end mt-auto'>
-                <button onClick={LogoutHandler} className='btn btn-sm hover:text-red-500 transition-colors'>Logout</button>
+                <LogoutButton onClick={LogoutHandler} />
             </div>
         </div>
     )
