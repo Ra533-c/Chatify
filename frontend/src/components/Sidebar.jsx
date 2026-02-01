@@ -41,7 +41,7 @@ const Sidebar = () => {
             dispatch(setMessages(null));
 
             // 5.navigate to login page 
-            navigate("/login")
+            navigate("/")
             toast.success("Logout Successfully");
 
         } catch (err) {

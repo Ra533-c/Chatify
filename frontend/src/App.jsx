@@ -1,13 +1,14 @@
 import './App.css'
 import Signup from './components/signup.jsx';
 import Login from './components/Login.jsx';
-import Homepage from './components/HomePage.jsx';
+import Homepage from './components/HomePage.jsx';  // This is chat page
+import LandingPage from './components/LandingPage.jsx';  // NEW
+import ProtectedRoute from './components/ProtectedRoute.jsx';  // NEW
 import Notfound from './components/Notfound.jsx';
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { io } from "socket.io-client";
-import { useState } from 'react';
 import { setSocket } from "./redux/Slice/socketSlice"
 import { setOnlineUsers } from "./redux/Slice/userSlice"
 import { useDispatch } from 'react-redux';
@@ -16,7 +17,15 @@ const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <Homepage />
+      element: <LandingPage />  
+    },
+    {
+      path: "/chat",
+      element: (
+        <ProtectedRoute>
+          <Homepage />  
+        </ProtectedRoute>
+      )
     },
     {
       path: "/signup",

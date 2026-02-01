@@ -28,7 +28,7 @@ const Login = () => {
             });
             if (res.data.success) {
                 console.log("the res come from backend:-", res)
-                navigate("/");
+                navigate("/chat");
                 console.log("the res.data:-", res.data);
                 dispatch(setAuthUser(res.data));
                 toast.success(res.data.message);
