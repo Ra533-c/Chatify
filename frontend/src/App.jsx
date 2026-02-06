@@ -7,23 +7,24 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';  // NEW
 import Notfound from './components/Notfound.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { io } from "socket.io-client";
 import { setSocket } from "./redux/Slice/socketSlice"
 import { setOnlineUsers } from "./redux/Slice/userSlice"
 import { useDispatch } from 'react-redux';
+import useGetMe from './hooks/useGetMe.jsx'; // Import the new hook
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <LandingPage />  
+      element: <LandingPage />
     },
     {
       path: "/chat",
       element: (
         <ProtectedRoute>
-          <Homepage />  
+          <Homepage />
         </ProtectedRoute>
       )
     },
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
 function App() {
   const dispatch = useDispatch();
   const { authUser } = useSelector((store) => store.user);
+  const { loading } = useGetMe(); // Use the hook
 
   useEffect(() => {
     if (authUser) {
@@ -69,6 +71,14 @@ function App() {
       dispatch(setOnlineUsers(null));
     }
   }, [authUser]);
+
+  if (loading) {
+    return (
+      <div className='h-screen flex items-center justify-center'>
+        <div className='text-white text-2xl'>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className='overflow-auto h-screen flex items-center justify-center'>

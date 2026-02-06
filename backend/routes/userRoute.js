@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { register, Login, Logout, getOtherUsers } from "../controllers/userController.js";
+import { register, Login, Logout, getOtherUsers, getMe } from "../controllers/userController.js";
 import isAuthenticated from "../middleware/isAuthenticated.js";
 
 router.route("/register")
@@ -12,7 +12,10 @@ router.route("/login")
 router.route("/logout")
     .get(Logout)
 
+router.route("/me")
+    .get(isAuthenticated, getMe)
+
 router.route("/")
-    .get(isAuthenticated,getOtherUsers)
+    .get(isAuthenticated, getOtherUsers)
 
 export default router;

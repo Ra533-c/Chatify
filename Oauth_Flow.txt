@@ -1,0 +1,62 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          COMPLETE OAUTH FLOW                                │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  STEP 1                                                                     │
+│  ──────                                                                     │
+│  User clicks "Continue with Google" button                                  │
+│  → handleGoogleLogin() runs                                                 │
+│  → window.location.href = ".../auth/google"                                │
+│                                                                             │
+│  STEP 2                                                                     │
+│  ──────                                                                     │
+│  Browser goes to: GET /api/v1/user/auth/google                             │
+│  → authRoute.js: router.get('/google', passport.authenticate('google'))   │
+│  → Passport builds Google URL                                               │
+│  → 302 Redirect to Google                                                   │
+│                                                                             │
+│  STEP 3                                                                     │
+│  ──────                                                                     │
+│  User is on Google login page                                               │
+│  → User selects account                                                     │
+│  → User enters password (to Google, NOT your app)                          │
+│  → User clicks "Allow"                                                      │
+│                                                                             │
+│  STEP 4                                                                     │
+│  ──────                                                                     │
+│  Google redirects: GET /api/v1/user/auth/google/callback?code=xyz          │
+│  → authRoute.js catches this                                                │
+│  → passport.authenticate('google') runs again                              │
+│                                                                             │
+│  STEP 5                                                                     │
+│  ──────                                                                     │
+│  Passport internally:                                                       │
+│  1. Extracts code from URL                                                  │
+│  2. POST to Google: code → access_token                                    │
+│  3. GET from Google: token → user profile                                  │
+│  4. Calls YOUR callback (passport.js)                                      │
+│                                                                             │
+│  STEP 6                                                                     │
+│  ──────                                                                     │
+│  Your callback runs (passport.js):                                          │
+│  → async (accessToken, refreshToken, profile, done) => { ... }             │
+│  → Check googleId in DB                                                     │
+│  → Check email in DB                                                        │
+│  → Create new user if not found                                             │
+│  → done(null, user)                                                         │
+│                                                                             │
+│  STEP 7                                                                     │
+│  ──────                                                                     │
+│  Passport sets req.user = user                                              │
+│  Final handler runs (authRoute.js):                                         │
+│  → jwt.sign({ userId: req.user._id })                                      │
+│  → res.cookie('token', token)                                              │
+│  → res.redirect('http://localhost:5173/chat')                              │
+│                                                                             │
+│  STEP 8                                                                     │
+│  ──────                                                                     │
+│  Browser redirects to frontend                                              │
+│  Cookie is set                                                              │
+│  User is LOGGED IN! 🎉                                                      │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘

@@ -11,7 +11,7 @@ const Sendinput = () => {
     const [inputMessage, setInputMessage] = useState("");
     const dispatch = useDispatch();
     const { selectedUser } = useSelector((store) => store.user);
-    const {messages} = useSelector((store)=>store.message);
+    const { messages } = useSelector((store) => store.message);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ const Sendinput = () => {
                     withCredentials: true,
                 })
             console.log("sendMessage", res);
-            dispatch(setMessages([...messages , res?.data?.newMessage]))
+            dispatch(setMessages([...messages, res?.data?.newMessage]))
         } catch (err) {
             console.log(err)
         }

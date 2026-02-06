@@ -12,6 +12,7 @@ A modern, feature-rich real-time chat application built with the MERN stack and 
 - **Real-Time Messaging**: Instant message delivery using Socket.IO
 - **Online Status Indicators**: See who's online with live status badges
 - **User Authentication**: Secure signup/login with JWT tokens
+- **Google OAuth**: One-click login with your Google account
 - **Persistent State**: Redux Persist keeps you logged in across sessions
 - **User Search**: Quick search with real-time filtering
 - **Responsive Design**: Beautiful UI that works on all devices
@@ -52,6 +53,7 @@ A modern, feature-rich real-time chat application built with the MERN stack and 
 - **Mongoose** - ODM
 - **Socket.IO** - WebSocket server
 - **JWT** - Authentication
+- **Passport.js** - OAuth strategies
 - **Bcrypt** - Password hashing
 - **Cookie Parser** - Cookie handling
 - **Dotenv** - Environment variables
@@ -94,7 +96,7 @@ touch .env
 **Add the following to `backend/.env`:**
 
 ```env
-PORT=3000
+PORT=8080
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_jwt_key
 NODE_ENV=development
@@ -126,7 +128,7 @@ npm run dev
 
 The app will be running at:
 - **Frontend**: http://localhost:5173
-- **Backend**: http://localhost:3000
+- **Backend**: http://localhost:8080
 
 ---
 
@@ -352,11 +354,24 @@ If you don't have MongoDB installed:
 3. Get your connection string
 4. Add it to your `.env` file
 
+### Troubleshooting
+
+> [!WARNING]
+> **Common Issues & Fixes**
+
+**1. MongoDB Connection Timeout**
+- **Error**: `MongooseError: Operation users.findOne() buffering timed out`
+- **Fix**: Go to MongoDB Atlas > Network Access > Add IP Address > **Allow Access from Anywhere (0.0.0.0/0)**.
+
+**2. Google Login "Blocked" (CSP Error)**
+- **Error**: `Content Security Policy directive: "default-src 'none'"`
+- **Fix**: We have added a strict CSP in `index.js`. If you see this, ensure your browser allows redirects to `accounts.google.com`.
+
 ### Environment Variables Reference
 
 **Backend (.env):**
 ```env
-PORT=3000
+PORT=8080
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/chatApp
 JWT_SECRET=your_secret_key_here
 NODE_ENV=development
@@ -364,9 +379,9 @@ NODE_ENV=development
 
 ### Common Issues & Solutions
 
-**Issue: Connection refused on port 3000**
+**Issue: Connection refused on port 8080**
 - Make sure backend is running
-- Check if port 3000 is available
+- Check if port 8080 is available
 - Try changing the port in `.env`
 
 **Issue: MongoDB connection failed**
@@ -375,7 +390,7 @@ NODE_ENV=development
 - Ensure MongoDB service is running (if local)
 
 **Issue: Socket connection error**
-- Ensure backend is running on port 3000
+- Ensure backend is running on port 8080
 - Check CORS configuration
 - Verify Socket.IO versions match
 

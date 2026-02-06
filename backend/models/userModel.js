@@ -12,11 +12,14 @@ const userModel = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: function(){
+            return this.authProvider === 'normal';
+        }
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique:true
     },
     profilePhoto: {
         type: String,
@@ -24,8 +27,20 @@ const userModel = new mongoose.Schema({
     },
     gender: {
         type: String,
-        anum: ["male", "female"],
-        required: true,
+        enum: ["male", "female"],
+        required: function(){
+            return this.authProvider === 'normal';
+        }
+    },
+    authProvider:{
+        type: String,
+        enum:['normal','google'],
+        default:'normal'
+    },
+    googleId:{
+        type:String,
+        unique:true,
+        sparse:true
     }
 }, { timestamps: true });
 export const User = mongoose.model("User", userModel);

@@ -61,7 +61,7 @@ const Signup = () => {
                         <input
                             onChange={(e) => setUser({ ...user, fullName: e.target.value })}
                             value={user.fullName}
-                            className='w-full input input-bordered h-10 outline-none'
+                            className='w-full input input-bordered h-10 outline-none text-black'
                             type="text"
                             name='fullName'
                             placeholder='Ronin Goswami'
@@ -74,7 +74,7 @@ const Signup = () => {
                         <input
                             onChange={(e) => setUser({ ...user, username: e.target.value })}
                             value={user.username}
-                            className='w-full input input-bordered h-10 outline-none'
+                            className='w-full input input-bordered h-10 outline-none text-black'
                             type="text"
                             name='username'
                             placeholder='ronin_goswami'
@@ -87,7 +87,7 @@ const Signup = () => {
                         <input
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
                             value={user.email}
-                            className='w-full input input-bordered h-10 outline-none'
+                            className='w-full input input-bordered h-10 outline-none text-black'
                             type="email"
                             name='email'
                             placeholder='ronin@example.com'
@@ -100,7 +100,7 @@ const Signup = () => {
                         <input
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                             value={user.password}
-                            className='w-full input input-bordered h-10 outline-none'
+                            className='w-full input input-bordered h-10 outline-none text-black'
                             type="password"
                             name='password'
                             placeholder='abc#123'
@@ -113,31 +113,29 @@ const Signup = () => {
                         <input
                             onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
                             value={user.confirmPassword}
-                            className='w-full input input-bordered h-10 outline-none'
+                            className='w-full input input-bordered h-10 outline-none text-black'
                             type="password"
                             name='Confirm Password'
                             placeholder='abc#123'
                         />
                     </div>
-                    <div className='flex items-center mt-4 mb-5'>
-                        <div className='flex items-center'>
-                            <p>Male</p>
+                    <div className='flex items-center gap-4 mt-4 mb-5'>
+                        <label className='flex items-center cursor-pointer'>
+                            <span className='label-text text-white mr-2'>Male</span>
                             <input
                                 checked={user.gender === "male"}
                                 onChange={() => handleCheckbox("male")}
-                                value={user.gender}
                                 type="checkbox"
-                                className="checkbox mx-2" />
-                        </div>
-                        <div className='flex items-center'>
-                            <p>Female</p>
+                                className="checkbox checkbox-primary border-white" />
+                        </label>
+                        <label className='flex items-center cursor-pointer'>
+                            <span className='label-text text-white mr-2'>Female</span>
                             <input
                                 checked={user.gender === "female"}
                                 onChange={() => handleCheckbox("female")}
-                                value={user.gender}
                                 type="checkbox"
-                                className="checkbox mx-2" />
-                        </div>
+                                className="checkbox checkbox-primary border-white" />
+                        </label>
                     </div>
                     <div className='text-white flex items-center justify-center mb-3'>
                         <p>Already have an account?</p>

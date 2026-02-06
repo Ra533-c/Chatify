@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setOtherUsers } from '../redux/Slice/userSlice';
-    
+
 const useGetOtherUsers = () => {
     const dispatach = useDispatch();
 
