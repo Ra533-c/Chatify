@@ -1,5 +1,5 @@
 import './App.css'
-import Signup from './components/signup.jsx';
+import Signup from './components/Signup.jsx';
 import Login from './components/Login.jsx';
 import Homepage from './components/HomePage.jsx';  // This is chat page
 import LandingPage from './components/LandingPage.jsx';  // NEW
