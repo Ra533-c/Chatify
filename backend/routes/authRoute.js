@@ -3,7 +3,7 @@
 
 import express from 'express';
 import passport from '../config/passport.js';
-import jwt from 'jsonwebtoken';  
+import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -31,8 +31,8 @@ const router = express.Router();
 // ═══════════════════════════════════════════════════════════════════════
 
 router.get('/google',
-    passport.authenticate('google',{
-        scope:['profile','email']
+    passport.authenticate('google', {
+        scope: ['profile', 'email']
     })
 );
 
@@ -73,32 +73,32 @@ router.get('/google',
 // ═══════════════════════════════════════════════════════════════════════
 
 router.get('/google/callback',
-    
+
     // ── Middleware 1: Passport Authentication ──
     // Ye pehle chalta hai
     // req.user mein user object daal deta hai
-    passport.authenticate('google', { 
+    passport.authenticate('google', {
         session: false,        // Sessions use nahi kar rahe (JWT use karenge)
         failureRedirect: '/login'  // Agar fail ho to kahan jaaye
     }),
-    
+
     // ── Middleware 2: Final Handler ──
     // Ye TAB chalta hai jab Passport complete ho jaye
     // Ab req.user mein user object hai
     (req, res) => {
-        
+
         try {
             // ───────────────────────────────────────────────────────
             // STEP 1: Check - User mila?
             // ───────────────────────────────────────────────────────
             if (!req.user) {
                 console.log('No user found after Google auth');
-                return res.redirect(process.env.FRONTEND_URL + '/login?error=auth_failed');
+                return res.redirect(process.env.CLIENT_URL + '/login?error=auth_failed');
             }
-            
+
             console.log('Google auth successful for:', req.user.email);
-            
-            
+
+
             // ───────────────────────────────────────────────────────
             // STEP 2: JWT Token Banao
             // 
@@ -110,8 +110,8 @@ router.get('/google/callback',
                 process.env.JWT_SECRET_KEY,        // Secret key
                 { expiresIn: '1d' }                // 1 day valid
             );
-            
-            
+
+
             // ───────────────────────────────────────────────────────
             // STEP 3: Cookie Set Karo
             // 
@@ -121,11 +121,11 @@ router.get('/google/callback',
             res.cookie('token', token, {
                 maxAge: 1 * 24 * 60 * 60 * 1000,   // 1 day in milliseconds
                 httpOnly: true,                    // Security: JS can't access
-                sameSite: 'lax',                   // CSRF protection
-                secure: process.env.NODE_ENV === 'production'  // HTTPS only in production
+                sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",                   // CSRF protection
+                secure: process.env.NODE_ENV !== "development"  // HTTPS only in production
             });
-            
-            
+
+
             // ───────────────────────────────────────────────────────
             // STEP 4: Frontend pe Redirect Karo
             // 
@@ -134,11 +134,11 @@ router.get('/google/callback',
             // Ab user logged in hai!
             // ───────────────────────────────────────────────────────
             console.log('Redirecting to frontend...');
-            res.redirect(process.env.FRONTEND_URL + '/chat');
-            
+            res.redirect(process.env.CLIENT_URL + '/chat');
+
         } catch (error) {
             console.error('Callback Error:', error);
-            res.redirect(process.env.FRONTEND_URL + '/login?error=server_error');
+            res.redirect(process.env.CLIENT_URL + '/login?error=server_error');
         }
     }
 );

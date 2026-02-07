@@ -23,12 +23,14 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: './backend/.env' });
 connectDB();
+// Middleware to parse JSON obj( request body) -> JS obj 
+app.set('trust proxy', 1); // fix for Google OAuth http/https mismatch
+
 const corsOptions = {
-    origin: "http://localhost:5173", //frontend URL
+    origin: process.env.CLIENT_URL || "http://localhost:5173", // Dynamic Origin
     credentials: true //allow credentials
 }
 
-// Middleware to parse JSON obj( request body) -> JS obj 
 app.use(cors(corsOptions))
 app.use(cookieParser());
 app.use(passport.initialize());
