@@ -20,8 +20,11 @@ const OtherUser = ({ user }) => {
         <>
             <div onClick={() => selectedUserHandler(user)} className={`flex text-white gap-2 items-center justify-center hover:bg-zinc-600 rounded-md cursor-pointer p-2 ${selectedUser?._id === user?._id ? "bg-zinc-600" : ""}`}>
                 <div className={`avatar ${isOnline ? "online" : ""}`}>
-                    <div className="w-10 rounded-full">
+                    <div className="w-10 rounded-full relative">
                         <img src={user?.profilePhoto} alt="user profile" />
+                        {isOnline && (
+                            <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-zinc-800 rounded-full"></span>
+                        )}
                     </div>
                 </div>
                 <div className="flex flex-col flex-1">

@@ -80,7 +80,7 @@ const Sidebar = () => {
                             dispatch(setfilteredUsers(filtered?.length > 0 ? filtered : null));
                         }
                     }}
-                    className='input input-border rounded-md outline-none'
+                    className='input input-border rounded-md outline-none text-white bg-zinc-700 placeholder:text-gray-400'
                     type="text"
                     placeholder='Search...'
                 />
