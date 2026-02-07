@@ -30,7 +30,7 @@ const Sidebar = () => {
 
             // 3.call backend logout API
             axios.defaults.withCredentials = true;
-            const res = await axios.get("http://localhost:3000/api/v1/user/logout");
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/logout`);
 
             // 4.redux state cleanup
             dispatch(setAuthUser(null));

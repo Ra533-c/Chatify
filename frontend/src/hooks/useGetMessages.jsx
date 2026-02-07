@@ -11,7 +11,7 @@ const useGetMessages = () => {
         const fetchMessage = async () => {
             try {
                 axios.defaults.withCredentials = true;
-                const res = await axios.get(`http://localhost:3000/api/v1/message/${selectedUser?._id}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/message/${selectedUser?._id}`);
                 dispatch(setMessages(res.data?.conversation?.messages || []));
                 console.log("res from useGetMessages", res);
             } catch (err) {
