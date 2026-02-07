@@ -20,7 +20,7 @@ const Login = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:3000/api/v1/user/login", user, {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/login`, user, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -42,7 +42,7 @@ const Login = () => {
     }
     const handleGoogleLogin = () => {
         // Backend URL jahan Google OAuth start hota hai
-        window.location.href = "http://localhost:3000/api/v1/user/auth/google";
+        window.location.href = `${import.meta.env.VITE_API_URL}/api/v1/user/auth/google`;
         //                              ↑
         //                     Ye exact URL hona chahiye
         //                     Route 1 (authRoute.js) se match karna chahiye
