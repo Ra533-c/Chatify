@@ -1,16 +1,20 @@
 import { Server } from "socket.io";
 import express from "express";
 import http from "http";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express()
 
 const server = http.createServer(app);
+
+// Allow both localhost (development) and production URLs
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://chatify-azure-omega.vercel.app"
+];
+
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL || "http://localhost:5173",
+        origin: allowedOrigins,
         methods: ['GET', 'POST'],
         credentials: true
     }
