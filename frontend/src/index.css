@@ -89,3 +89,34 @@ body::after {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .chat-container {
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    /* Sidebar full width on mobile */
+    .sidebar {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    /* Chat area full width */
+    .chat-area {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 640px) {
+
+    /* Smaller text on mobile */
+    .text-lg {
+        font-size: 1rem;
+    }
+
+    .text-xl {
+        font-size: 1.1rem;
+    }
+}

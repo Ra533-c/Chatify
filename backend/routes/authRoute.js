@@ -121,8 +121,8 @@ router.get('/google/callback',
             res.cookie('token', token, {
                 maxAge: 1 * 24 * 60 * 60 * 1000,   // 1 day in milliseconds
                 httpOnly: true,                    // Security: JS can't access
-                sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",                   // CSRF protection
-                secure: process.env.NODE_ENV !== "development"  // HTTPS only in production
+                sameSite: "none",                  // Cross-site cookies allowed
+                secure: true                       // HTTPS only
             });
 
 
