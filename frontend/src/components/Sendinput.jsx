@@ -15,7 +15,12 @@ const Sendinput = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        // alert(inputMessage)
+
+        // Don't send empty messages
+        if (!inputMessage.trim()) {
+            return;
+        }
+
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/message/send/${selectedUser?._id}`,
                 {
