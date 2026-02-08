@@ -6,7 +6,7 @@ const app = express()
 
 const server = http.createServer(app);
 
-// Allow both localhost (development) and production URLs
+// CORS: Allow both localhost and production
 const allowedOrigins = [
     "http://localhost:5173",
     "https://chatify-azure-omega.vercel.app"
