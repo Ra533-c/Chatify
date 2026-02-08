@@ -64,7 +64,7 @@ const Sidebar = () => {
         // }
     }
     return (
-        <div className='border-r border-slate-500 p-3 flex flex-col' >
+        <div className='border-r border-slate-500 p-3 flex flex-col w-fit min-w-[90px] shrink' >
             <form onSubmit={searchSubmitHandler} className='flex items-center justify-center gap-3' action="">
                 <input
                     value={search}
@@ -80,7 +80,7 @@ const Sidebar = () => {
                             dispatch(setfilteredUsers(filtered?.length > 0 ? filtered : null));
                         }
                     }}
-                    className='input input-border rounded-md outline-none text-white bg-zinc-700 placeholder:text-gray-400'
+                    className='input flex-1  input-border rounded-md outline-none text-white bg-zinc-700 placeholder:text-gray-400'
                     type="text"
                     placeholder='Search...'
                 />
