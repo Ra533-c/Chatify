@@ -31,7 +31,7 @@ const SingleMessage = ({ message }) => {
                             hour12: true
                         })}</time>
                 </div>
-                <div className={`chat-bubble text-white ${authUser?._id === message?.senderId ? "chat-bubble-neutral" : "chat-bubble-accent text-black"}`}>{message.message}</div>
+                <div className={`chat-bubble ${authUser?._id === message?.senderId ? "chat-bubble-neutral" : "chat-bubble-accent text-black"}`}>{message.message}</div>
             </div>
         </div>
     )
