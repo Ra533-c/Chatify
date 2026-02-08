@@ -4,7 +4,7 @@ import MessageContainer from "./MessageContainer";
 
 const Homepage = () => {
     return (
-        <div className="flex flex-col items-center gap-4 md:flex-row w-full h-screen">
+        <div className="flex flex-col items-center gap-4 md:flex-row">
             <h1 className="text-4xl font-bold text-white">Chatify</h1>
             <div className="flex overflow-auto sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-60 border border-gray-100">
                 <Sidebar />
